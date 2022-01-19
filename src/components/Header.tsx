@@ -8,7 +8,7 @@ import {
   PageToggleButton,
   Toolbar,
   ToolbarContent,
-  ToolbarItem
+  ToolbarItem,
 } from "@patternfly/react-core";
 import BarsIcon from "@patternfly/react-icons/dist/esm/icons/bars-icon";
 import pfIcon from "../assets/images/pf-icon.svg";

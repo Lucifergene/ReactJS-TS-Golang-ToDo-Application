@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { AppContext } from "../App";
 import {
   Form,
@@ -40,8 +41,8 @@ const TodoForm = () => {
   return (
     <div style={todoStyle}>
       <Grid>
-        <GridItem span={3} rowSpan={4}></GridItem>
-        <GridItem span={6} rowSpan={4}>
+        <GridItem span={3}></GridItem>
+        <GridItem span={6}>
           <Form>
             <FormGroup label="Task" isRequired fieldId="task">
               <TextInput
@@ -80,7 +81,14 @@ const TodoForm = () => {
             </Bullseye>
           </Form>
         </GridItem>
-        <GridItem span={3} rowSpan={4}></GridItem>
+        <GridItem span={3}></GridItem>
+        <br />
+        <br />
+        <Bullseye>
+          <Link to="/todos">
+            <Button variant="secondary">Pending Tasks</Button>
+          </Link>
+        </Bullseye>
       </Grid>
     </div>
   );
