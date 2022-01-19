@@ -1,7 +1,6 @@
 import React, { FC, useState, createContext, useReducer } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import "./App.css";
 import "@patternfly/patternfly/patternfly.css";
 import "@patternfly/react-core/dist/styles/base.css";
 import { Page } from "@patternfly/react-core";
