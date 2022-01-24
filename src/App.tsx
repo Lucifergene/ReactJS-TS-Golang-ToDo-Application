@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "@patternfly/patternfly/patternfly.css";
 import "@patternfly/react-core/dist/styles/base.css";
-import { Page } from "@patternfly/react-core";
+import { Page, PageSection } from "@patternfly/react-core";
 
+import './App.scss'
 import { ITask } from "./Interfaces";
 
 import Header from "./components/Header";
@@ -12,7 +13,6 @@ import Sidebar from "./components/Sidebar";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import Footer from "./components/Footer";
-
 interface IContextProps {
   state: any;
   dispatch: ({ type, payload }: { type: string; payload?: any }) => void;
@@ -70,16 +70,19 @@ const App: FC = () => {
       <BrowserRouter>
         <AppContext.Provider value={{ state, dispatch }}>
           <Page
+            className="block"
             header={<Header isNavOpen={isNavOpen} onNavToggle={onNavToggle} />}
             sidebar={<Sidebar isNavOpen={isNavOpen} />}
           >
-            <div>
-              <Routes>
-                <Route path="/todos" element={<TodoList />} />
-                <Route path="/" element={<TodoForm />} />
-              </Routes>
-            </div>
-            <Footer />
+            <PageSection sticky="bottom">
+              <div>
+                <Routes>
+                  <Route path="/todos" element={<TodoList />} />
+                  <Route path="/" element={<TodoForm />} />
+                </Routes>
+              </div>
+              <Footer />
+            </PageSection>
           </Page>
         </AppContext.Provider>
       </BrowserRouter>

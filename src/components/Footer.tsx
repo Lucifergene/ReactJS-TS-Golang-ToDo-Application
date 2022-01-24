@@ -1,40 +1,22 @@
 import React, { useState, useEffect } from "react";
-
-var style: any = {
-  backgroundColor: "#F8F8F8",
-  borderTop: "1px solid #E7E7E7",
-  textAlign: "center",
-  padding: "20px",
-  position: "fixed",
-  left: "0",
-  bottom: "0",
-  height: "60px",
-  width: "100%",
-};
-
-var phantom = {
-  display: "block",
-  padding: "20px",
-  height: "60px",
-  width: "100%",
-};
+import '../assets/scss/footerStyle.scss'
 
 const Footer = () => {
   const [footer, setFooter] = useState<string>("");
 
   useEffect(() => {
-    fetch(`https://api.chucknorris.io/jokes/random`)
+    fetch(`https://type.fit/api/quotes`)
       .then((res) => res.json())
       .then((json) => {
-        setFooter(json.value);
+        const rndInt: number = Math.floor(Math.random() * 50) + 1
+        setFooter(json[rndInt].text);
       })
       .catch((error) => console.log(error));
   }, []);
 
   return (
     <div>
-      <div style={phantom} />
-      <div style={style}>{footer}</div>
+      <div className="styler">{footer}</div>
     </div>
   );
 };
