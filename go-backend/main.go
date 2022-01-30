@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
 	"gopkg.in/mgo.v2"
 
@@ -27,6 +29,14 @@ func main() {
 
 func getSession() *mgo.Session {
 
+	err := godotenv.Load()
+	if err != nil {
+		panic(err)
+	}
+
+	mongoPasswd := os.Getenv("MONGO_PASSWD")
+	mongoUser := os.Getenv("MONGO_USER")
+
 	tlsConfig := &tls.Config{}
 
 	dialInfo := &mgo.DialInfo{
@@ -35,8 +45,8 @@ func getSession() *mgo.Session {
 			"cluster0-shard-00-01.qiqen.mongodb.net:27017",
 			"cluster0-shard-00-02.qiqen.mongodb.net:27017",
 		},
-		Username: "avik6028",
-		Password: "avik240299",
+		Username: mongoUser,
+		Password: mongoPasswd,
 	}
 	dialInfo.DialServer = func(addr *mgo.ServerAddr) (net.Conn, error) {
 		conn, err := tls.Dial("tcp", addr.String(), tlsConfig)
