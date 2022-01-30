@@ -29,10 +29,10 @@ func main() {
 
 func getSession() *mgo.Session {
 
-	err := godotenv.Load()
-	if err != nil {
-		panic(err)
-	}
+// 	err := godotenv.Load()
+// 	if err != nil {
+// 		panic(err)
+// 	}
 
 	mongoPasswd := os.Getenv("MONGO_PASSWD")
 	mongoUser := os.Getenv("MONGO_USER")
