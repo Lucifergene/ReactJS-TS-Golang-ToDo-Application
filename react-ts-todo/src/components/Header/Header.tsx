@@ -1,5 +1,5 @@
 import React from "react";
-import '../assets/scss/headerStyle.scss'
+import "./Header.scss";
 
 import {
   Masthead,
@@ -13,7 +13,7 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 import BarsIcon from "@patternfly/react-icons/dist/esm/icons/bars-icon";
-import todoIcon from "../assets/images/todo.png";
+import todoIcon from "../../assets/images/todo.png";
 interface Props {
   isNavOpen: boolean;
   onNavToggle(): void;

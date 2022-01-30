@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../App";
 import {
@@ -15,22 +15,15 @@ import {
 const TodoForm = () => {
   const { state, dispatch } = useContext(AppContext);
 
-  const handletask = (value: any): void => {
-    dispatch({ type: "SET_TASK", payload: value });
-    console.log(value);
-  };
-
-  const handledeadline = (value: any): void => {
-    dispatch({ type: "SET_DEADLINE", payload: Number(value) });
-    console.log(value);
-  };
+  const [taskname, setTaskname] = useState("");
+  const [deadline, setDeadline] = useState(0);
 
   const addTask = (): void => {
     const newTask = {
-      taskName: state.task,
-      deadline: state.deadline,
+      taskname: taskname,
+      deadline: deadline,
     };
-    dispatch({ type: "ADD_TASK", payload: newTask });
+    dispatch({ type: "INSERT_TODO", payload: newTask });
     console.log(newTask);
   };
 
@@ -50,8 +43,10 @@ const TodoForm = () => {
                 type="text"
                 id="task"
                 name="task"
-                value={state.task}
-                onChange={handletask}
+                value={taskname}
+                onChange={(value) => {
+                  setTaskname(value);
+                }}
               />
             </FormGroup>
             <FormGroup label="Deadline" isRequired fieldId="deadline">
@@ -60,8 +55,10 @@ const TodoForm = () => {
                 type="number"
                 id="deadline"
                 name="deadline"
-                value={state.deadline}
-                onChange={handledeadline}
+                value={deadline}
+                onChange={(value) => {
+                  setDeadline(Number(value));
+                }}
               />
             </FormGroup>
             <Bullseye>
@@ -72,7 +69,8 @@ const TodoForm = () => {
                 <Button
                   variant="danger"
                   onClick={() => {
-                    dispatch({ type: "CANCEL_TASK" });
+                    setTaskname("");
+                    setDeadline(0);
                   }}
                 >
                   Cancel

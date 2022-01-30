@@ -7,12 +7,14 @@ import { Page, PageSection } from "@patternfly/react-core";
 
 import './App.scss'
 import { ITask } from "./Interfaces";
+import api from "./apis";
 
-import Header from "./components/Header";
+
+import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer/Footer";
 interface IContextProps {
   state: any;
   dispatch: ({ type, payload }: { type: string; payload?: any }) => void;
@@ -20,37 +22,40 @@ interface IContextProps {
 const AppContext = createContext({} as IContextProps);
 
 const initialState = {
-  task: "",
-  deadline: 0,
   todoList: [],
 };
 
 const reducer = (state: any, action: any) => {
   switch (action.type) {
-    case "SET_TASK":
-      console.log(`Task: ${action.payload}`);
-      return { ...state, task: action.payload };
 
-    case "SET_DEADLINE":
-      console.log(`Deadline: ${action.payload}`);
-      return { ...state, deadline: action.payload };
-
-    case "ADD_TASK":
+    case "INSERT_TODO":
       console.log(
-        `ToDo: ${action.payload.taskName} | ${action.payload.deadline}`
+        `ToDo: ${action.payload.taskname} | ${action.payload.deadline}`
       );
-      return { ...state, todoList: [...state.todoList, action.payload] };
+      api.insertTodo(action.payload).then(res => {
+        window.alert(`ToDo inserted successfully`);
+        console.log("Inserted Record: ", res);
+      });
+      return {...state};
+
+    case "GET_TODOS":
+      console.log("Getting all ToDos: ", action.payload);
+      return { ...state, todoList: action.payload };
+
+      // api.getAllTodos().then(todos => {
+      //   console.log("All ToDos: ", todos.data);
+      //   return { ...state, todoList: todos.data};
+      // });
+      // return { ...state };
 
     case "DELETE_TASK":
       console.log(`Deleting: ${action.payload}`);
+      api.deleteTodoById(action.payload)
+
       const newList = state.todoList.filter(
-        (task: ITask) => task.taskName !== action.payload
+        (task: ITask) => task.id !== action.payload
       );
       return { ...state, todoList: newList };
-
-    case "CANCEL_TASK":
-      console.log(`Clearing Form`);
-      return { ...state, task: "", deadline: 0 };
 
     default:
       return state;
