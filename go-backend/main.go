@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
 	"gopkg.in/mgo.v2"
 
